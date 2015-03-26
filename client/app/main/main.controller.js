@@ -2,14 +2,14 @@
 
 angular.module('bookWormApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
-    $scope.awesomeThings = [];
+    $scope.bookList = [];
     $scope.formTitle = '';
     $scope.formAuthor = '';
     $scope.formIsbn = '';
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);
+    $http.get('/api/books').success(function(bookList) {
+      $scope.bookList = bookList;
+      socket.syncUpdates('book', $scope.bookList);
     });
 
     $scope.addThing = function() {
@@ -41,6 +41,6 @@ angular.module('bookWormApp')
     };
 
     $scope.$on('$destroy', function () {
-      socket.unsyncUpdates('thing');
+      socket.unsyncUpdates('book');
     });
   });

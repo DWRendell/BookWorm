@@ -5,8 +5,29 @@
 
 'use strict';
 
+var Book = require('../api/book/book.model');
 var Thing = require('../api/thing/thing.model');
 
+
+Book.find({}).remove(function() {
+  Book.create({
+    title   : 'Harry Potter and the Prisoner of Azkaban',
+    author  : 'J.K. Rowling',
+    isbn    : '0747542155'
+  }, {
+    title   : 'Flowers for Algernon',
+    author  : 'Daniel Keyes',
+    isbn    : '0151315108'
+  }, {
+    title   : 'To Kill a Mockingbird',
+    author  : 'Harper Lee',
+    isbn    : '9788466626767'
+  }, {
+    title   : 'Northern Lights',
+    author  : 'Philip Pullman',
+    isbn    : '0590541781'
+  });
+});
 
 Thing.find({}).remove(function() {
   Thing.create({

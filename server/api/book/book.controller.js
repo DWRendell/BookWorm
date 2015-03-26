@@ -9,8 +9,16 @@
 
 'use strict';
 
-//var _ = require('lodash');
+var _ = require('lodash');
 var Book = require('./book.model');
+
+//Returns a list of books in the database
+exports.index = function(req, res) {
+  Book.find(function (err, books) {
+    if(err) { return handleError(res, err); }
+    return res.json(200, books);
+  });
+};
 
 //Creates a new book in the database
 exports.create = function(req, res) {

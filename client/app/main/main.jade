@@ -1,4 +1,4 @@
-h1 Hello World!
+h1 BookWorm
 .container
   .row
     form.book-form(role='form' ng-submit='manualBookCreate()')
@@ -12,3 +12,13 @@ h1 Hello World!
         label(for='isbn') ISBN:
         input.form-control(role='isbn' type='text', placeholder='ISBN' ng-model='formIsbn')
       button.btn.btn-success(type='submit') Submit
+  .row
+    table.table
+      tr
+        th Title
+        th Author
+        th ISBN
+      tr(ng-repeat='book in bookList')
+        td {{book.title}}
+        td {{book.author}}
+        td {{book.isbn}}

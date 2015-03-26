@@ -5,7 +5,6 @@ var app = require('../../app');
 var request = require('supertest');
 
 describe('POST /api/books', function() {
-
   it('should respond with 201 Created', function(done) {
     request(app)
       .post('/api/books')
@@ -42,6 +41,20 @@ describe('POST /api/books', function() {
         if (err) return done(err);
         done();
       });
-  })
+  });
+});
+
+describe('GET /api/books', function() {
+  it('should respond with JSON array', function(done) {
+    request(app)
+      .get('/api/books')
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(function(err, res) {
+        if (err) return done(err);
+        res.body.should.be.instanceof(Array);
+        done();
+      });
+  });
 });
 
