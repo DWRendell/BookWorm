@@ -1,1 +1,14 @@
 h1 Hello World!
+.container
+  .row
+    form.book-form(role='form' ng-submit='manualBookCreate()')
+      .form-group
+        label(for='title') Title:
+        input.form-control(role='title' type='text', placeholder='Title' ng-model='formTitle')
+      .form-group
+        label(for='author') Author:
+        input.form-control(role='author' type='text', placeholder='Author' ng-model='formAuthor')
+      .form-group
+        label(for='isbn') ISBN:
+        input.form-control(role='isbn' type='text', placeholder='ISBN' ng-model='formIsbn')
+      button.btn.btn-success(type='submit') Submit
