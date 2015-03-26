@@ -3,6 +3,9 @@
 angular.module('bookWormApp')
   .controller('MainCtrl', function ($scope, $http, socket) {
     $scope.awesomeThings = [];
+    $scope.formTitle = '';
+    $scope.formAuthor = '';
+    $scope.formIsbn = '';
 
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;
@@ -19,6 +22,22 @@ angular.module('bookWormApp')
 
     $scope.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
+    };
+
+    $scope.manualBookCreate = function() {
+      if ($scope.formTitle === '') {
+        return;
+      }
+      var book = {
+        title: $scope.formTitle,
+        author: $scope.formAuthor,
+        isbn: $scope.formIsbn
+      };
+      $http.post('/api/books', book);
+
+      $scope.formTitle = '';
+      $scope.formAuthor = '';
+      $scope.formIsbn = '';
     };
 
     $scope.$on('$destroy', function () {

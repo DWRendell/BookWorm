@@ -5,8 +5,8 @@ var mongoose = require('mongoose'),
 
 var BookSchema = new Schema({
   title: {type: String, required: true},
-  author: {type: String, required: true},
-  isbn: {type: String, required: true}
+  author: {type: String, required: false},
+  isbn: {type: String, required: false}
 });
 
 module.exports = mongoose.model('Book', BookSchema);

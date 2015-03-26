@@ -26,4 +26,21 @@ describe('Controller: MainCtrl', function () {
     $httpBackend.flush();
     expect(scope.awesomeThings.length).toBe(4);
   });
+
+  it('sends a POST request to the server when manualBookCreate() is called',
+    function () {
+    var book = {
+      title: 'test title',
+      author: 'test author',
+      isbn: 'test isbn'
+    };
+
+    scope.formTitle = book.title;
+    scope.formAuthor = book.author;
+    scope.formIsbn = book.isbn;
+
+    scope.manualBookCreate();
+    $httpBackend.expectPOST('/api/books', book).respond(201, '');
+    $httpBackend.flush();
+    });
 });
