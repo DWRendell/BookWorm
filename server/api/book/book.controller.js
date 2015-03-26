@@ -12,7 +12,7 @@
 var _ = require('lodash');
 var Book = require('./book.model');
 
-//Returns a list of books in the database
+//Returns a list of books in the database.
 exports.index = function(req, res) {
   Book.find(function (err, books) {
     if(err) { return handleError(res, err); }
@@ -20,11 +20,23 @@ exports.index = function(req, res) {
   });
 };
 
-//Creates a new book in the database
+//Creates a new book in the database.
 exports.create = function(req, res) {
   Book.create(req.body, function(err, book) {
     if(err) { return handleError(res, err); }
     return res.json(201, book);
+  });
+};
+
+//Deletes a book from the database.
+exports.destroy = function(req, res) {
+  Book.findById(req.params.id, function (err, book) {
+    if(err) { return res.send(404); }
+    if(!book) { return res.send(404); }
+    book.remove(function(err) {
+      if(err) { return handleError(res, err); }
+      return res.send(204);
+    });
   });
 };
 

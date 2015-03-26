@@ -1,4 +1,5 @@
-h1 BookWorm
+.jumbotron
+  h1 BookWorm
 .container
   .row
     form.book-form(role='form' ng-submit='manualBookCreate()')
@@ -13,12 +14,15 @@ h1 BookWorm
         input.form-control(role='isbn' type='text', placeholder='ISBN' ng-model='formIsbn')
       button.btn.btn-success(type='submit') Submit
   .row
-    table.table
+    table.table.table-striped
       tr
         th Title
         th Author
         th ISBN
+        th Delete
       tr(ng-repeat='book in bookList')
         td {{book.title}}
         td {{book.author}}
         td {{book.isbn}}
+        td
+          button.btn.btn-danger.btn-xs X

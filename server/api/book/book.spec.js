@@ -3,6 +3,7 @@
 var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
+var Book = require('./book.model');
 
 describe('POST /api/books', function() {
   it('should respond with 201 Created', function(done) {
@@ -53,6 +54,37 @@ describe('GET /api/books', function() {
       .end(function(err, res) {
         if (err) return done(err);
         res.body.should.be.instanceof(Array);
+        done();
+      });
+  });
+});
+
+describe('DELETE /api/books/:id', function() {
+  it('should respond with no content', function(done) {
+    Book.create({title: 'test title'}, function(err, book) {
+      if(err) { done(err)}
+    });
+    request(app)
+      .get('/api/books')
+      .end(function(err, res) {
+        if (err) return done(err);
+        var id = res.body[0]._id;
+        request(app)
+          .del('/api/books/' + id)
+          .expect(204)
+          .end(function(err, res) {
+            if (err) return done(err);
+            done();
+          });
+      });
+  });
+
+  it('should respond with a 404 when given an invalid book id', function(done) {
+    request(app)
+      .del('/api/books/NotAnId')
+      .expect(404)
+      .end(function(err, res) {
+        if (err) return done(err);
         done();
       });
   });
