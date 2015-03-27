@@ -40,6 +40,11 @@ angular.module('bookWormApp')
       $scope.formIsbn = '';
     };
 
+    $scope.deleteBook = function(index) {
+      var deleteId = $scope.bookList[index]._id;
+      $http.delete('/api/books/' + deleteId);
+    };
+
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('book');
     });

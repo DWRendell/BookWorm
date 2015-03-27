@@ -21,8 +21,8 @@
         th ISBN
         th Delete
       tr(ng-repeat='book in bookList')
-        td {{book.title}}
-        td {{book.author}}
-        td {{book.isbn}}
-        td
-          button.btn.btn-danger.btn-xs X
+        td.col-lg-7 {{book.title}}
+        td.col-lg-2 {{book.author}}
+        td.col-lg-2 {{book.isbn}}
+        td.col-lg-1
+          button.btn.btn-danger.btn-xs(ng-click='deleteBook($index)') X
