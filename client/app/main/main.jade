@@ -25,4 +25,4 @@
         td.col-lg-2 {{book.author}}
         td.col-lg-2 {{book.isbn}}
         td.col-lg-1
-          button.btn.btn-danger.btn-xs(ng-click='deleteBook($index)') X
+          button.btn.btn-danger.btn-xs(ng-click='deleteBookConfirm(book.title, book)') X

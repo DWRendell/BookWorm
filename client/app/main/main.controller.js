@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bookWormApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
+  .controller('MainCtrl', function ($scope, $http, socket, Modal) {
     $scope.bookList = [];
     $scope.formTitle = '';
     $scope.formAuthor = '';
@@ -44,6 +44,10 @@ angular.module('bookWormApp')
       var deleteId = $scope.bookList[index]._id;
       $http.delete('/api/books/' + deleteId);
     };
+
+    $scope.deleteBookConfirm = Modal.confirm.delete(function(book){
+      $http.delete('/api/books/' + book._id);
+    });
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('book');
