@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bookWormApp')
-  .factory('Modal', function ($rootScope, $modal) {
+  .factory('Modal', function ($rootScope, $modal, $http) {
     /**
      * Opens a modal
      * @param  {Object} scope      - an object to be merged with modal's scope
@@ -17,6 +17,20 @@ angular.module('bookWormApp')
 
       return $modal.open({
         templateUrl: 'components/modal/modal.html',
+        windowClass: modalClass,
+        scope: modalScope
+      });
+    }
+
+    function openFormModal(scope, modalClass) {
+      var modalScope = $rootScope.$new();
+      scope = scope || {};
+      modalClass = modalClass || 'modal-default';
+
+      angular.extend(modalScope, scope);
+
+      return $modal.open({
+        templateUrl: 'components/modal/formModal.html',
         windowClass: modalClass,
         scope: modalScope
       });
@@ -72,6 +86,47 @@ angular.module('bookWormApp')
             });
           };
         }
+      },
+
+      submit: {
+        manual: function(create) {
+          create = create || angular.noop;
+
+          return function() {
+            var args = Array.prototype.slice.call(arguments),
+              name = args.shift(),
+              formModal;
+
+            formModal = openFormModal({
+              modal: {
+                dismissable: true,
+                title: 'Manually Enter a Book',
+                buttons: [{
+                  classes: 'btn-primary',
+                  text: 'Submit',
+                  click: function(e) {
+                    formModal.dismiss(e);
+                  }
+                }, {
+                  classes: 'btn-default',
+                  text: 'Cancel',
+                  click: function(e) {
+                    formModal.dismiss(e);
+                  }
+                }]
+              }
+            }, 'modal-primary');
+
+            formModal.result.then(function(event) {
+              var book = {
+                title: 'title',
+                author: 'author',
+                isbn: 'isbn'
+              };
+              $http.post('/api/books', book);
+            });
+          }
+        }
       }
-    };
+    }
   });

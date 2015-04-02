@@ -26,6 +26,10 @@ Book.find({}).remove(function() {
     title   : 'Northern Lights',
     author  : 'Philip Pullman',
     isbn    : '0590541781'
+  }, {
+    title   : 'Lirael',
+    author  : 'Garth Nix',
+    isbn    : '9780606246057'
   });
 });
 

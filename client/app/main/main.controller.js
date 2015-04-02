@@ -46,10 +46,24 @@ angular.module('bookWormApp')
     };
 
     $scope.deleteBookConfirm = Modal.confirm.delete(function(book){
+      foobar();
       $http.delete('/api/books/' + book._id);
+    });
+
+    $scope.manualModal = Modal.submit.manual(function(title, author, isbn) {
+      debugger;
+      $scope.formTitle = title;
+      $scope.formAuthor = author;
+      $scope.formIsbn = isbn;
+      $scope.manualBookCreate();
     });
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('book');
     });
   });
+
+function foobar() {
+  var $deleteModal = $('.modal-danger');
+  console.log($deleteModal);
+}
